@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>sockchat</title>
+    <link type="text/css" rel="stylesheet" href="style.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="font-awesome.css">
+    </head>
+  <body>
+
+  	<div class="content">
+  		<!--<textarea class="form" autofocus></textarea>-->
+  		<div class="chat"></div>
+
+  		<form name="input" autocomplete="off" action="javascript: sendMessage()" method="get">
+			   <input class="form" type="text" name="user" autofocus>
+		  </form>
+      <div class="button"><i class="icon-ok-sign"></i></div>
+  	</div>
+  	
+	<script>
+	  	var socket = io.connect('http://localhost');
+  	
+	  	var name;
+
+  		var getName = function(){
+  			if(localStorage && localStorage.getItem('name')){
+  				name = localStorage.getItem('name');
+  			}else{
+  				name = prompt('what\'s your name?');
+  				if(localStorage){
+  					localStorage.setItem('name',name);
+  				}
+  			}
+  		}
+
+  		var appendMessage = function(data){
+  			$('.chat').prepend('<p>' + data.name + ': ' + data.message + '</p');
+  			//var height = $('.chat').scrollHeight;
+  			//$('.chat').scrollTop(height);
+  		}
+
+  		var sendMessage = function(){
+  			var msg = $('.form').val();
+  			if(!msg){
+				console.log('no message');
+				return;
+			}
+			$('.form').val('');
+			var data = {
+				'name': name,
+				'message': msg
+			};
+			console.log(msg);
+			
+			socket.emit('message', data);
+
+			var myData = {
+				'name': 'me',
+				'message': msg
+			};
+			appendMessage(myData);
+  		};
+
+      $('.button').click(function(ev){
+        sendMessage();
+      })
+
+  		socket.on('message', function (data) {
+    		console.log(data);
+    		appendMessage(data);
+    	});
+
+    	getName();
+
+	</script>
+    
+  </body>
+</html>

@@ -1,0 +1,62 @@
+
+body{
+    overflow:hidden;
+}
+
+.content{
+     width: 100%;
+}
+
+.chat{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    margin:0;
+    height:100%;
+    background-color: rgb(250,250,250);
+    border: none;
+    outline: none;
+    font-family: Helvetica;
+    font-size: 40px;
+    padding: 10px;    
+    overflow: auto;
+}
+
+.button{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width:50px;
+    height: 50px;
+    background-color: rgb(80,80,80);
+    padding:10px;
+}
+
+.button i{
+    margin-left: 5px;
+    font-size: 50px;
+    color: rgb(240,240,240);
+}
+
+.chat p{
+    color: rgb(80,80,80);
+    line-height: 5px;
+}
+
+.form{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    margin: 0;
+    height: 50px;
+    background-color: rgb(240,240,240);
+    color: rgb(80,80,80);
+    border: none;
+    outline: none;
+    font-family: Helvetica;
+    font-size: 40px;
+    padding: 10px;
+    white-space: nowrap;
+}
